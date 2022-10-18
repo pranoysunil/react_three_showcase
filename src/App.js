@@ -67,7 +67,7 @@ const Plane = () => {
 
 	return (
 		<mesh position={[0, 0, 0]}>
-			<planeBufferGeometry attach="geometry" args={[25, 25]} />
+			<planeBufferGeometry attach="geometry" args={[50, 50]} />
 			<meshStandardMaterial attach="material" map={metalMap} normalMap={metalNormalMap} metalness={0.5} />
 		</mesh>
 	)
@@ -75,7 +75,7 @@ const Plane = () => {
 
 function App() {
 	return (
-		<Canvas camera={{ position: [0, 0, 30], up: [0, 0, 1], far: 10000 }}>
+		<Canvas camera={{ position: [10, 10, 10], up: [0, 0, 1],down : [10, 10, 10], left : [1, 1, 1],right: [1, 1, 1] ,far: 10000,rotateOnAxis: [10, 0 ,0] }}>
 			<Suspense fallback={null}>
 
 				{
@@ -85,16 +85,16 @@ function App() {
 				}
 
 				<Sky
-					distance={450000}
+					distance={4500000}
 					sunPosition={[0, 1, 0]}
-					inclination={0}
+					inclination={360}
 					azimuth={0.25}
 				/>
 
 				<Stars
 					radius={100} // Radius of the inner sphere (default=100)
 					depth={50} // Depth of area where stars should fit (default=50)
-					count={5000} // Amount of stars (default=5000)
+					count={15000} // Amount of stars (default=5000)
 					factor={4} // Size factor (default=4)
 					saturation={0} // Saturation 0-1 (default=0)
 					fade // Faded dots (default=false)
@@ -106,7 +106,9 @@ function App() {
 				<Box />
 				<Sphere />
 				<Cylinder />
-				<Plane />
+				<Plane 
+				   inclination={360}   //plane makes a rotation of 360 degree
+				/>
 
 			</Suspense>
 
