@@ -5,7 +5,7 @@
 import { Suspense, useState } from 'react';
 import { TextureLoader } from 'three';
 import { Canvas, useLoader } from '@react-three/fiber';
-import { MapControls, OrbitControls, Sky, Stars } from '@react-three/drei';
+import { MapControls, OrbitControls, Sky, Stars, Cloud } from '@react-three/drei';
 
 // Import Assets
 import MetalMap from './assets/MetalMap.png';
@@ -59,6 +59,7 @@ const Cylinder = () => {
 }
 
 const Plane = () => {
+	
 	// --> https://threejs.org/docs/index.html#api/en/geometries/PlaneGeometry
 
 	// Lets add a cutom texture & material...
@@ -67,16 +68,18 @@ const Plane = () => {
 
 	return (
 		<mesh position={[0, 0, 0]}>
-			<planeBufferGeometry attach="geometry" args={[50, 50]} />
+			<planeBufferGeometry attach="geometry" args={[2500, 2500]}/>
 			<meshStandardMaterial attach="material" map={metalMap} normalMap={metalNormalMap} metalness={0.5} />
 		</mesh>
 	)
 }
 
+
 function App() {
 	return (
-		<Canvas camera={{ position: [10, 10, 10], up: [0, 0, 1],down : [10, 10, 10], left : [1, 1, 1],right: [1, 1, 1] ,far: 10000,rotateOnAxis: [10, 0 ,0] }}>
+		<Canvas camera={{ position: [10, 10, 10], up: [0, 0, 1],down : [10, 10, 10], left : [10, 1, 1],right: [10, 1, 1] ,far: 10000,rotateOnAxis: [10, 10, 10] }}>
 			<Suspense fallback={null}>
+				
 
 				{
 					// === Sky & Stars ===
@@ -85,7 +88,7 @@ function App() {
 				}
 
 				<Sky
-					distance={4500000}
+					distance={45000000}
 					sunPosition={[0, 1, 0]}
 					inclination={360}
 					azimuth={0.25}
@@ -93,21 +96,31 @@ function App() {
 
 				<Stars
 					radius={100} // Radius of the inner sphere (default=100)
-					depth={50} // Depth of area where stars should fit (default=50)
-					count={15000} // Amount of stars (default=5000)
+					depth={900} // Depth of area where stars should fit (default=50)
+					count={2600000} // Amount of stars (default=5000)
 					factor={4} // Size factor (default=4)
-					saturation={0} // Saturation 0-1 (default=0)
+					saturation={1} // Saturation 0-1 (default=0)
 					fade // Faded dots (default=false)
 				/>
+				{/*<Cloud
+                 opacity={0.5}
+				 distance={45000000}
+				 depth={900}
+                 speed={0.4} // Rotation speed
+                 width={10} // Width of the full cloud
+                depth={1.5} // Z-dir depth
+                segments={20000} // Number of particles
+/>*/}
 
 				<ambientLight intensity={0.75} />
 
 				{/* Add Objects Here */}
-				<Box />
+				<Box/> 
 				<Sphere />
 				<Cylinder />
+				
 				<Plane 
-				   inclination={360}   //plane makes a rotation of 360 degree
+				   inclination={0}   //plane makes a rotation of 360 degree
 				/>
 
 			</Suspense>
@@ -119,7 +132,7 @@ function App() {
 			}
 
 			<MapControls />
-			{/* <OrbitControls /> */}
+			 <OrbitControls /> 
 
 		</Canvas>
 	);
